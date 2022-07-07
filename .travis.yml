@@ -3,6 +3,8 @@ language: node_js
 node_js:
   - "16"
 
-script:
+before_script:
   - npm install
+
+script:
   - npm run test:ci
