@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import todosReducer from "../reducers/todos";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    todos: todosReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
