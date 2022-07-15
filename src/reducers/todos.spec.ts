@@ -1,4 +1,4 @@
-import reducer, { addTodo, updateTodo } from "./todos";
+import reducer, { addTodo, updateTodo, deleteTodo } from "./todos";
 import initialState from "./initialState";
 import { Todo } from "../types/Todo";
 
@@ -86,6 +86,36 @@ describe("Reducers::Todos", () => {
     const action = {
       type: updateTodo.type,
       payload: todoC,
+    };
+    const expected = {
+      list: [todoA, todoB],
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it("should handle deleteTodo", () => {
+    const appState = {
+      list: [todoA, todoB],
+    };
+    const action = {
+      type: deleteTodo.type,
+      payload: todoB.id,
+    };
+    const expected = {
+      list: [todoA],
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it("should handle deleteTodo with todo not found", () => {
+    const appState = {
+      list: [todoA, todoB],
+    };
+    const action = {
+      type: deleteTodo.type,
+      payload: todoC.id,
     };
     const expected = {
       list: [todoA, todoB],
