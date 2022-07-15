@@ -8,6 +8,7 @@ export interface TodosState {
 
 export const addTodo = createAction<Todo>("addTodo");
 export const updateTodo = createAction<Todo>("updateTodo");
+export const deleteTodo = createAction<string>("deleteTodo");
 
 export const todosSlice = createSlice({
   name: "todos",
@@ -27,6 +28,13 @@ export const todosSlice = createSlice({
 
         if (todo) {
           todo.description = action.payload.description;
+        }
+      })
+      .addCase(deleteTodo, (state, action) => {
+        const todo = state.list.find((t) => t.id === action.payload);
+
+        if (todo) {
+          state.list = state.list.filter((t) => t.id !== todo.id);
         }
       });
   },
